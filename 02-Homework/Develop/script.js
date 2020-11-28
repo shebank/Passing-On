@@ -1,19 +1,84 @@
-function randomPassword(length) {
-    var chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890";
-    var pass = "";
-    for (var x = 0; x < length; x++) {
-        var i = Math.floor(Math.random() * chars.length);
-        pass += chars.charAt(i);
+const pwEl = document.getElementById("pw");
+
+	const copyEl = document.getElementById("copy");
+	const lenEl = document.getElementById("len");
+    const upperEl = document.getElementById("upper");
+    const lowerE1 = document.getElementById("lower"); 
+    const numberE1 = document.getElementById("number");
+    const symbolE1 = document.getElementById("symbol");
+    const generate = document.getElementById("generate");
+
+    const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerLetters = "abcdefghijklmnopqrstuvwxyz";
+    const numbers = "0123456789";
+    const symbol = "!@#$%^&*()_+=";
+
+    function getLowercase() {
+        return lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
     }
-    return pass;
-}
+    function getUppercase() {
+        return upperLetters[Math.floor(Math.random() * upperLetters.length)];
+    }
+    function getNumber() {
+        return numbers[Math.floor(Math.random() * numbers.length)];
+    } 
+    function getSymbol() {
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+    function generatePassword() {
+        const len = lenEl.value;
+        let password = "";
+        if (upperEl.checked) {
+            password += getUppercase();
+        }
+        if (lowerEl.checked) {
+            password += getLowercase();
+        }
+        if (numberEl.checked) {
+            password += getNumber();
+        }
+        if (symbolE1.checked) {
+            password += getSymbol();
+        }
+        for (let i = password.length; i < len; i++) {
+            const x = generateX();
+            password += x;
+        }
+        pwEl.innerText = password;
+    }
+    
+    function generateX() {
+        const xs = [];
+        if (upperEl.checked) {
+            xs.push(getUppercase());
+        }
+        if (lowerEl.checked) {
+            xs.push(getLowercase());
+        }
+        if (numberEl.checked) {
+            xs.push(getNumber());
+        }
+        if (symbolEl.checked) {
+            xs.push(getSymbol());
+        }
+        if (xs.length === 0) return "";
+    
+        return xs[Math.floor(Math.random() * xs.length)];
+    }
+            generateEl.addEventListener("click", generatePassword);
 
-function generate() {
-    myform.row_password.value = randomPassword(myform.length.value);
-}
+            copyEl.addEventListener("click", () => {
+        const textarea = document.createElement("textarea");
+        const password = pwEl.innerText;
+    
+        if (!password) {
+            return;
+        }           
+            textarea.value = password;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            textarea.remove();
+            alert("password copied to Clipboard");
 
-function copyToClipboard(text) {
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-
-
-}
+        });

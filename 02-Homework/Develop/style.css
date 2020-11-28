@@ -15,7 +15,7 @@ body {
 
 
 .pw-container {
-  background-color: rgb(46, 12, 80);
+  background-color: rgb(150, 98, 202);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   min-width: 400px;
 }
@@ -74,7 +74,7 @@ body {
 
 
 .generate {
-    background-color: #ecb602;
+    background-color: #8d0606;
     border: none;
     color: rebeccapurple;
     cursor: pointer;
